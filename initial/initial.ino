@@ -59,9 +59,9 @@ public:
 };
 
 float jointLength = 100;
-Joint shoulder = Joint(jointLength, 8, 10, 9, 11);
-Joint elbow = Joint(jointLength, 3, 5, 4, 6);
-Pen pen = Pen(12);
+Joint elbow = Joint(jointLength, 7, 8, 9, 10);
+Joint shoulder = Joint(jointLength, 3, 4, 5, 6);
+Pen pen = Pen(2);
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);  // initialises the builtin LED
@@ -72,7 +72,7 @@ void setup() {
 void loop() {
 
 
-//  drawRectangle(50,40,60,30); 
+  drawRectangle(50,40,60,30); 
   
 }
 
