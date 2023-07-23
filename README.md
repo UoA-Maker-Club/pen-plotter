@@ -124,7 +124,7 @@ Download the pattern and copy paste it into the serial monitor
 
 ## Socials
 
-| Link      | <img width="100px" src="./images/promo/gdsc%20logo.webp">      | <img width="100px" src="./images/promo/maker%20club%20logo.webp"> |
+| Link      | <img width="100px" src="./images/promo/mecha.png">      | <img width="100px" src="./images/promo/maker%20club%20logo.webp"> |
 | --------- | -------------------------------------------------------------- | ----------------------------------------------------------------- |
 | Discord   |                                                                | [penxcqxhyh](https://discord.gg/penxcqxhyh)                       |
 | Instagram | [@mecha.uoa](https://www.instagram.com/mecha.uoa)              | [@make.uoa](https://www.instagram.com/make.uoa/)                  |
