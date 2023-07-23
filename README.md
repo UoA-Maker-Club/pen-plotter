@@ -1,4 +1,4 @@
-# Smart Lanterns
+# Pen Plotter
 
 ## Presented by Mecha and Maker Club UoA
 
@@ -8,7 +8,10 @@ TIME: ~ 2.5hr
 
 LINK: [https://github.com/UoA-Maker-Club/plotter-arm](https://github.com/UoA-Maker-Club/plotter-arm)
 
-<img width="500px" src="./images/promo/primary.webp">
+<img width="500px" src="./images/promo/main.jpg">
+
+<!-- HUGH GET BETTER PIC -->
+
 
 ## `Format of the event`
 
@@ -120,8 +123,6 @@ Download the pattern and copy paste it into the serial monitor
 
 
 ## Socials
-
-For more workshops like this please checkout either my github profile [etinaude](https://github.com/etinaude) or the following clubs which made this event possible:
 
 | Link      | <img width="100px" src="./images/promo/gdsc%20logo.webp">      | <img width="100px" src="./images/promo/maker%20club%20logo.webp"> |
 | --------- | -------------------------------------------------------------- | ----------------------------------------------------------------- |
