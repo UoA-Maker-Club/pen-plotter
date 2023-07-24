@@ -28,7 +28,7 @@ void setup() {
 void loop() {
   if (Serial.available() > 0) {
     String input = Serial.readString();
-    if (input.substring(0, 2) == "G0") {
+    if ((input.substring(0, 2) == "G1") || (input.substring(0, 2) == "G0")) {
       Serial.println("here");
       int xIndex = input.indexOf("X");
       int yIndex = input.indexOf("Y");
@@ -37,6 +37,8 @@ void loop() {
 
       Serial.println(x);
       Serial.println(y);
+
+      // Move to line
     }
     Serial.println(input);
   }
