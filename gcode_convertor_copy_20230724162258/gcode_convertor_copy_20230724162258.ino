@@ -25,22 +25,68 @@ void setup() {
   Serial.println("gcode generator: markroland.github.io/sand-table-pattern-maker");
 }
 
+inline bool isDigitOrDot(char ch) {
+  return '0' >= ch && ch >= '9';
+}
+
+inline bool isDigit(char ch) {
+  return isDigit(ch) || ch == '.';
+}
+
 void loop() {
-  if (Serial.available() > 0) {
-    String input = Serial.readString();
-    if ((input.substring(0, 2) == "G1") || (input.substring(0, 2) == "G0")) {
-      Serial.println("here");
-      int xIndex = input.indexOf("X");
-      int yIndex = input.indexOf("Y");
-      double x = (input.substring(4, yIndex - 1)).toDouble();
-      double y = (input.substring(yIndex + 1)).toDouble();
+  if (Serial.available()) {
+    String input = Serial.readStringUntil('\n') + " ";
 
-      Serial.println(x);
-      Serial.println(y);
+    if (!(input.length() >= 2 && input[0] == 'G' && isDigit(input[1]))) return;
 
-      // Move to line
+    int command = input[1] - '0';
+
+
+    switch (command) {
+      case 0:
+      case 1:
+        float x;
+        float y;
+
+        for (int i = 2; i < input.length(); i++) {
+          String data = "";
+
+          switch (input[i]) {
+            case ' ':
+              break;
+
+            case 'X':
+              for (i++; i < input.length(); i++) {
+                if (isDigitOrDot(input[i])) {
+                  data += String(input[i]);
+                } else if (input[i] == ' ' && data.length() > 0) {
+                  x = input.float();
+                  data = "";
+                } else {
+                  return;
+                }
+              }
+
+            case 'Y':
+              for (i++; i < input.length(); i++) {
+                if (isDigitOrDot(input[i])) {
+                  data += String(input[i]);
+                } else if (input[i] == ' ' && data.length() > 0) {
+                  y = input.float();
+                  data = "";
+                } else {
+                  return;
+                }
+              }
+          }
+        }
+
+        Serial.println("Command " + String(command) + " X: " + String(x) + ", Y: " + String(y))
+      default:
+        return;
     }
-    Serial.println(input);
+
   }
 }
+
 
