@@ -22,7 +22,7 @@ typedef struct {
 } CPos;
 
 int radToSteps(double radians) {
-  return (radians / (2 * PI) + 0.5) * STEPS;
+  return (radians / (2 * PI)) * STEPS;
 }
 
 class Arm {
@@ -43,6 +43,10 @@ public:
 
     m_elbow.setAcceleration(10000000);
     m_shoulder.setAcceleration(10000000000);
+  }
+  void MoveShoulderTo(float shoulderAngle){
+    m_shoulder.moveTo(radToSteps(shoulderAngle));
+    RunSteppers();
   }
 
   void LineTo(CPos pos) {
@@ -112,7 +116,7 @@ private:
         if (m_elbow.runSpeedToPosition()) Serial.println("Elbow step");
 
       if (m_shoulder.isRunning())
-        if (m_shoulder.runSpeedToPosition()) Serial.println("Shoulder step");
+        if (m_shoulder.runSpeedToPosition()) Serial.println("Shoulder step: ");
     }
   }
 };
@@ -130,7 +134,10 @@ void setup() {
 
   Serial.begin(9600);
 
-  arm.LineTo({ .x = 0, .y = 195 });
+
+  // arm.LineTo({ .x = 30, .y =100 });
+  arm.MoveShoulderTo((-0.5*PI));
+
 }
 
 void loop() {}

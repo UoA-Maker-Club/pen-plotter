@@ -12,8 +12,9 @@ public:
   Joint(float _length, int pin1, int pin2, int pin3, int pin4) {
     length = _length;
     currentAngle = PI;
-    stepper = Stepper(totalSteps, pin1, pin2, pin3, pin4);
-    stepper.setSpeed(5);
+    stepper = Stepper(FULL4WIRE, pin1, pin2, pin3, pin4);
+    stepper.setMaxSpeed(1000);
+    stepper.setAcceleration(100);
   }
 
   void moveStepper(float angle) {
