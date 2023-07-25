@@ -82,6 +82,8 @@ Place the Arduino Nano into the breadboard, pay close attention to its location,
 
 wire up the two board drivers to the arduino following the diagram
 
+<img width="500px" src="./images/stepper driver diagram.webp">
+
 Build the forearm from the servo, stepper, and lasercut piece
 
 <img width="500px" src="./images/forearm.webp">
