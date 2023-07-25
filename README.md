@@ -80,6 +80,8 @@ Place the Arduino Nano into the breadboard, pay close attention to its location,
 
 <img width="500px" src="./images/nano_spacing_2.webp">
 
+wire up the two board drivers to the arduino following the diagram
+
 Build the forearm from the servo, stepper, and lasercut piece
 
 <img width="500px" src="./images/forearm.webp">
