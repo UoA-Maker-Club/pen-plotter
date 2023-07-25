@@ -88,32 +88,17 @@ Build the forearm from the servo, stepper, and lasercut piece
 
 <img width="500px" src="./images/forearm.webp">
 
-press
+connect forearm to the base using the shoulder to elbow, acrylic piece
 
-### `Step 3.2: Wiring`
+<img width="500px" src="./images/shoulder.webp">
 
-Nano
-  GND - GND batteries
-        GND Sero
-        GND Shoulder Stepper
-        GND Elbow Stepper
-        
-  5V - Servo Voltage
-  D2 - Servo Data
-  
-  D3 - Shoulder Stepper 1 
-  D4 - Shoulder Stepper 2
-  D5 - Shoulder Stepper 3
-  D6 - Shoulder Stepper 4
-  
-  D7 - Elbow Stepper 1
-  D8 - Elbow Stepper 2
-  D9 - Elbow Stepper 3
-  D10 - Elbow Stepper 4
+wire up the servo to the Arduino Nano according to the below diagram, you will need 3 extra female to male wires
 
-Batteries + - Shoulder Stepper +
-            - Elbow Stpper +
+<img width="500px" src="./images/servo diagram.webp">
 
+the final step is to wire up the battery holder and power wires for the stepper drivers, pay careful attention to the positive and negative locations
+
+"need another image
 
 <!-- HUGH ADD PHOTO HERE -->
 
