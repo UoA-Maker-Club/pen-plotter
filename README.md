@@ -57,8 +57,6 @@ During the in person workshop we will provide you with a few components, these a
 - 4 x AA Batteris
 - 1 x Acrylic parts (made of 3 components)
 - 1 x mini bread board
-- 1 x USB cable (BYO)
-- 1 x Laptop (BYO)
 
 <img width="500px" src="./images/layout.webp">
 
@@ -69,13 +67,24 @@ You will need to bring 2 things
 
 ### `Step 3.1: Mechanism`
 
-Attach the breadboard, batteries, and one stepper motor to the acrylic base.
+Attach the breadboard, batteries, and one stepper motor to the acrylic base. using bolts and double sided tape
 
-<!-- HUGH ADD PHOTO HERE -->
+<img width="500px" src="./images/base.webp">
+<img width="500px" src="./images/shoulder2.webp">
 
-Connect shoulder joint and elbow join to the stepper motors
+Add the stepper drivers using double sided tape
 
-<!-- HUGH ADD PHOTO HERE -->
+<img width="500px" src="./images/drivers.webp">
+
+Place the Arduino Nano into the breadboard, pay close attention to its location, it should be one row over from the stepper motor, and two columns back from the Mecha X Maker logo.
+
+<img width="500px" src="./images/nano_spacing_2.webp">
+
+Build the forearm from the servo, stepper, and lasercut piece
+
+<img width="500px" src="./images/forearm.webp">
+
+press
 
 ### `Step 3.2: Wiring`
 
