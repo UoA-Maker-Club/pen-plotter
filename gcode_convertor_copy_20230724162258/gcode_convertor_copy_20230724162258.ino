@@ -15,32 +15,46 @@ typedef struct {
   }
 } CPos;
 
+inline bool isDigit(char ch) {
+  return ('0' <= ch) && (ch <= '9');
+}
+
+inline bool isDigitOrDot(char ch) {
+  return isDigit(ch) || ch == '.';
+}
+
 char incomingByte = 0;  // for incoming serial data
 
 void setup() {
   Serial.begin(9600);
+
   Serial.println("\n\n\t~~~ WELCOME 😀 ~~~");
   Serial.println("Mecha X Maker pen plotter workshop!");
   Serial.println("Instructions: github.com/UoA-Maker-Club/plotter-arm");
-  Serial.println("gcode generator: markroland.github.io/sand-table-pattern-maker");
+  Serial.println("gcode generator: https://markrol  and.github.io/sand-table-pattern-maker");
 }
 
-inline bool isDigitOrDot(char ch) {
-  return '0' >= ch && ch >= '9';
-}
 
-inline bool isDigit(char ch) {
-  return isDigit(ch) || ch == '.';
-}
 
 void loop() {
   if (Serial.available()) {
-    String input = Serial.readStringUntil('\n') + " ";
+    String input = Serial.readString();
 
-    if (!(input.length() >= 2 && input[0] == 'G' && isDigit(input[1]))) return;
+    Serial.println("'" + input + "'");
+    Serial.println("Length is " + String(input.length()));
+    Serial.println("input[0] is " + String(input[0]));
+    Serial.println("input[1] is " + String(input[1]));
+    Serial.println("isDigit(input[1]) is " + String(isDigit(input[1])));
+
+    Serial.flush();
+
+    if (input.length() < 2) return;
+    if (input[0] != 'G' || !isDigit(input[1])) return;
 
     int command = input[1] - '0';
 
+    Serial.println("Command is " + String(command));
+    Serial.flush();
 
     switch (command) {
       case 0:
@@ -49,44 +63,59 @@ void loop() {
         float y;
 
         for (int i = 2; i < input.length(); i++) {
-          String data = "";
-
           switch (input[i]) {
             case ' ':
               break;
 
             case 'X':
-              for (i++; i < input.length(); i++) {
-                if (isDigitOrDot(input[i])) {
-                  data += String(input[i]);
-                } else if (input[i] == ' ' && data.length() > 0) {
-                  x = input.float();
-                  data = "";
-                } else {
-                  return;
-                }
-              }
+              i++;
+              x = readFloat(i, input);
+              if (isnan(x)) { Serial.println("X is NaN"); return; };
+              break;
 
             case 'Y':
-              for (i++; i < input.length(); i++) {
-                if (isDigitOrDot(input[i])) {
-                  data += String(input[i]);
-                } else if (input[i] == ' ' && data.length() > 0) {
-                  y = input.float();
-                  data = "";
-                } else {
-                  return;
-                }
-              }
+              i++;
+              Serial.println(input[i]);
+              y = readFloat(i, input);
+              if (isnan(y)) { Serial.println("Y is NaN"); return; }
+              break;
+            
+            default:
+              break;
           }
         }
 
-        Serial.println("Command " + String(command) + " X: " + String(x) + ", Y: " + String(y))
+        Serial.println("Command " + String(command) + " X: " + String(x) + ", Y: " + String(y));
+        Serial.flush();
+        return;
       default:
         return;
     }
-
   }
 }
 
+float readFloat(int &i, String s) {
+  String buffer = "";
 
+  while (i < s.length()) {
+    Serial.println(s[i]);
+
+    if (isDigitOrDot(s[i])) {
+      buffer += String(s[i]);
+    } else if ((s[i] == ' ' || s[i] == '\n') && buffer.length() != 0) {
+      return buffer.toFloat();
+    } else {
+      Serial.println("Breaking, buffer is '" + buffer + "'");
+      return NAN;
+    }
+
+    i++;
+  }
+  
+  return NAN;
+}
+
+/* 
+Test GCode
+G0 X236.00 Y190.00
+*/
