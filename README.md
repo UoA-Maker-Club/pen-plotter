@@ -55,8 +55,11 @@ During the in person workshop we will provide you with a few components, these a
 - 2 x [28BYJ-48 Stepper Motors](https://components101.com/motors/28byj-48-stepper-motor)
 - 1 x Battery Holder
 - 4 x AA Batteris
-- 1 x Acrylic parts (made of 3 components)
+- 3 x Acrylic parts
 - 1 x mini bread board
+- 3 x 3D printed parts\
+- 7 x m3 bolts
+- 2 x m3 nuts
 
 <img width="500px" src="./images/layout.webp">
 
