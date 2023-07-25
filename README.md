@@ -75,7 +75,7 @@ Attach the breadboard, batteries, and one stepper motor to the acrylic base. usi
 <img width="500px" src="./images/base.webp">
 <img width="500px" src="./images/shoulder2.webp">
 
-Add the stepper drivers using double sided tape
+Add the stepper drivers and battery holder using double sided tape
 
 <img width="500px" src="./images/drivers.webp">
 
