@@ -19,7 +19,7 @@ This is a free event with the goal of sending everyone home with a pen plotter a
 
 **Intro**: We introduce the clubs and demonstrate briefly how to make the pen plotter and explain what we will be doing.\
 **Collab**: Breaking into teams of 3-5 working together to make one pen plotter.\
-**Individual**: Using the process learned in the previous step to make the rest the new lanterns for the team.\
+**Individual**: Using the process learned in the previous step to make the rest the plotters for the team.\
 **Food**: Needed for survival by humans.\
 **Outro**: Bring the group back together and going further with the lanterns, as well as exploring more options for this tech.
 
@@ -59,6 +59,8 @@ During the in person workshop we will provide you with a few components, these a
 - 1 x mini bread board
 - 1 x USB cable (BYO)
 - 1 x Laptop (BYO)
+
+<img width="500px" src="./images/layout.webp">
 
 You will need to bring 2 things
 
