@@ -1,4 +1,5 @@
 #include <AccelStepper.h>
+#include <MultiStepper.h>
 
 const int JOINT_LENGTH = 100;
 const int MAX_SPEED = 1000;
@@ -66,78 +67,106 @@ public:
     int shoulderSign = dShoulderAngle < 0 ? -1 : 1;
     int elbewSign = dElbowAngle < 0 ? -1 : 1;
 
+    Serial.println("~~~~~~  elbow sign: " + String(elbewSign) + "Shoulder Sign: " + String(shoulderSign) + " ~~~~~~~~~");
+
     m_shoulder.moveTo(radToSteps(shoulderAngle));
     m_elbow.moveTo(radToSteps(elbewSign));
 
-    if (absDShoulderAngle == absDElbewAngle) {
-      m_elbow.setSpeed(m_maxSpeed * elbewSign);
-      m_shoulder.setSpeed(m_maxSpeed * shoulderSign);
-    } else if (absDElbewAngle > absDShoulderAngle) {
-      m_elbow.setSpeed(m_maxSpeed * elbewSign);
-      m_shoulder.setSpeed(m_maxSpeed * shoulderSign * (absDShoulderAngle / absDElbewAngle));
-    } else if (absDElbewAngle < absDShoulderAngle) {
-      m_elbow.setSpeed(m_maxSpeed * elbewSign * (absDElbewAngle / absDShoulderAngle));
-      m_shoulder.setSpeed(m_maxSpeed * shoulderSign);
-    }
+    // if (absDShoulderAngle == absDElbewAngle) {
+    //   Serial.println("IIIFFFF1");
+    //   m_elbow.setSpeed(m_maxSpeed * elbewSign);
+    //   m_shoulder.setSpeed(m_maxSpeed * shoulderSign);
+    // } else if (absDElbewAngle > absDShoulderAngle) {
 
-    Serial.print("Shoulder ");
-    Serial.print(shoulderAngle);
-    Serial.print("rad (");
-    Serial.print(radToSteps(shoulderAngle));
-    Serial.print(" steps) Speed ");
-    Serial.println(m_elbow.speed());
+    //   float elbowSpeed = (m_maxSpeed * elbewSign);
+    //   m_elbow.setSpeed(elbowSpeed);
+      
 
+    //   float shoulderSpeed = (m_maxSpeed * shoulderSign * (absDShoulderAngle / absDElbewAngle));
+    //   m_shoulder.setSpeed(shoulderSpeed);
+    //   Serial.println("IF2 shoulderSpeed = " + String(shoulderSpeed));
 
-    Serial.print("Elbow ");
-    Serial.print(elbowAngle);
-    Serial.print("rad (");
-    Serial.print(radToSteps(elbowAngle));
-    Serial.print(" steps) Speed ");
-    Serial.println(m_elbow.speed());
+    // } else if (absDElbewAngle < absDShoulderAngle) {
+      
+    //   float elbowSpeed = (m_maxSpeed * elbewSign * (absDElbewAngle / absDShoulderAngle));
+    //   m_elbow.setSpeed(elbowSpeed);
+    //   Serial.println("IF3 elbowSpeed = " + String(elbowSpeed));
 
-    RunSteppers();
+    //   float shoulderSpeed = (m_maxSpeed * shoulderSign);
+    //   m_shoulder.setSpeed(shoulderSpeed);
+    // }
 
-    m_prevElbowAngle = elbowAngle;
-    m_prevShoulderAngle = shoulderAngle;
-  }
-
-private:
-  AccelStepper m_elbow;
-  AccelStepper m_shoulder;
-
-  double m_prevShoulderAngle;
-  double m_prevElbowAngle;
-
-  int m_maxSpeed;
-
-  void RunSteppers() {
-    while (m_elbow.isRunning() || m_shoulder.isRunning()) {
-      if (m_elbow.isRunning())
-        if (m_elbow.runSpeedToPosition()) Serial.println("Elbow step");
-
-      if (m_shoulder.isRunning())
-        if (m_shoulder.runSpeedToPosition()) Serial.println("Shoulder step: ");
-    }
-  }
-};
-
-AccelStepper shoulder(AccelStepper::FULL4WIRE, 3, 4, 5, 6);
-AccelStepper elbow(AccelStepper::FULL4WIRE, 7, 8, 9, 10);
-Arm arm(elbow, shoulder);
-
-void setup() {
-  shoulder.setSpeed(100);
-  Serial.println(shoulder.speed());
-
-  elbow.setAcceleration(30);
-  shoulder.setAcceleration(30);
-
-  Serial.begin(9600);
+    // Serial.print("Shoulder ");
+    // Serial.print(absDShoulderAngle);
+    // Serial.print("rad (");
+    // Serial.print(radToSteps(shoulderAngle));
+    // Serial.print(" steps) Speed ");
+    // Serial.println(m_elbow.speed());
 
 
-  // arm.LineTo({ .x = 30, .y =100 });
-  arm.MoveShoulderTo((-0.5*PI));
+    // Serial.print("Elbow ");
+    // Serial.print(absDElbewAngle);
+    // Serial.print("rad (");
+    // Serial.print(radToSteps(elbowAngle));
+    // Serial.print(" steps) Speed ");
+    // Serial.println(m_elbow.speed());
+    // Serial.println("m_maxSpeed: " + String(m_maxSpeed));
 
-}
+    // RunSteppers();
 
-void loop() {}
+//     m_prevElbowAngle = elbowAngle;
+//     m_prevShoulderAngle = shoulderAngle;
+//   }
+
+// private:
+//   AccelStepper m_elbow;
+//   AccelStepper m_shoulder;
+
+//   double m_prevShoulderAngle;
+//   double m_prevElbowAngle;
+
+//   int m_maxSpeed;
+
+//   void RunSteppers() {
+//     while ((m_elbow.distanceToGo() != 0) || (m_shoulder.distanceToGo() != 0)) {
+//       //Serial.println("loop running");
+//       if (m_elbow.distanceToGo() != 0){
+//         m_elbow.runSpeed();
+//       }
+
+
+//       if (m_shoulder.distanceToGo() != 0){
+//         m_shoulder.runSpeed();
+//       }
+//  //       if (m_shoulder.runSpeedToPosition()) Serial.println("Shoulder step: ");
+//     }
+//   }
+// };
+
+// AccelStepper shoulder(AccelStepper::FULL4WIRE, 3, 4, 5, 6);
+// AccelStepper elbow(AccelStepper::FULL4WIRE, 7, 8, 9, 10);
+
+// Arm arm(elbow, shoulder);
+
+// void setup() {
+//   shoulder.setSpeed(100);
+//   Serial.println(shoulder.speed());
+
+//   elbow.setAcceleration(30);
+//   shoulder.setAcceleration(30);
+
+//   Serial.begin(9600);
+
+//   Serial.println("x30, y100");
+//   arm.LineTo({ .x = 70, .y =30 });
+
+//   Serial.println("x100, y30");
+//   arm.LineTo({ .x = 100, .y =30 });
+
+//   Serial.println("x30, y100");
+//   arm.LineTo({ .x = 30, .y =100 });
+//   // arm.MoveShoulderTo((-0.5*PI));
+
+// }
+
+// void loop() {}
