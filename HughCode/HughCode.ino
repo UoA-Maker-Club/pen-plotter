@@ -1,5 +1,6 @@
 #include <AccelStepper.h>
 #include <MultiStepper.h>
+#include <Servo.h>
 #define MotorInterfaceType 4
 const int JOINT_LENGTH = 100;
 const int MAX_SPEED = 1000;
@@ -15,6 +16,11 @@ typedef struct {
 typedef struct {
   int x;
   int y;
+
+  void scaleMap() {
+      x = map(x, 0, 150, 150, 30);
+      y = map(y, 0, 150, 150, 30);
+  }
 
   PPos toPolar() {
     return {
@@ -33,54 +39,82 @@ int radToSteps(double radians) {
   return (radians / (2 * PI)) * STEPS;
 }
 
-void RunSteppers(){
+void RunSteppers() {
 
-  while (Arm.run()){
+  while (Arm.run()) {
     delay(10);
     // Serial.println("running Steppers");
   }
 }
 
-void LineTo(CPos pos) {
-    PPos ppos = pos.toPolar();
+void goTo(CPos pos) {
+  pos.scaleMap();
+  PPos ppos = pos.toPolar();
 
-    double elbowAngle = acos((sq(shoulderToElbow) + sq(elbowToPen) - sq(ppos.r)) / (sq(shoulderToElbow) + sq(elbowToPen)));
-    double internalShoulderAngle = acos(sq(ppos.r) / ((elbowToPen+shoulderToElbow) * ppos.r));
+  double elbowAngle = acos((sq(shoulderToElbow) + sq(elbowToPen) - sq(ppos.r)) / (sq(shoulderToElbow) + sq(elbowToPen)));
+  double internalShoulderAngle = acos(sq(ppos.r) / ((elbowToPen + shoulderToElbow) * ppos.r));
 
-    double shoulderAngle = ppos.theta - internalShoulderAngle + PI / 2;
-    long steps[2] = {radToSteps(shoulderAngle), radToSteps(elbowAngle)};
-    Arm.moveTo(steps);
-    RunSteppers();
+  double shoulderAngle = ppos.theta - internalShoulderAngle + PI / 2;
+  long steps[2] = { radToSteps(shoulderAngle), radToSteps(elbowAngle) };
+  Arm.moveTo(steps);
+  RunSteppers();
 }
+
+// void drawLine(CPos previous, CPos pos);
+//   int rise = pos.y - previous.y;
+//   int run = pos.x - previous.x;
+//   float gradient = rise/run;
+//   goTo(previous);
+//   if (rise > run){
+//     for (int i = 0; i < rise; i++){
+//         CPos point;
+//         point.x = int(i/gradient) + previous.x;
+//         pint.y = i + previous.y;
+//         goTo(point);
+//     }
+//   }
+//   else if (run > rise){
+//     for (int i = 0; i < run; i++){
+//         CPos point;
+//         point.x = i + previous.x;
+//         point.y = int(i*gradient) + prevous.y;
+//         goTo(point);
+//     }
+//   }
+
+
+
+
+
+
 
 
 void setup() {
-  
-Serial.begin(9600);
-shoulder.setMaxSpeed(80);
-elbow.setMaxSpeed(80);
-Arm.addStepper(shoulder);
-Arm.addStepper(elbow);
-// long steps [2] = {200,400};
-// Arm.moveTo(steps);
-// Serial.println("shoulder speed: " + String(shoulder.speed()));
-// Serial.println("elbow speed: " + String(elbow.speed()));
-// RunSteppers();
-// Serial.println("switching directions");
-// steps[0] = -0;
-// steps[1] = -0;
-// Arm.moveTo(steps);
-// Serial.println("shoulder speed: " + String(shoulder.speed()));
-// Serial.println("elbow speed: " + String(elbow.speed()));
-// RunSteppers();
 
-//Serial.println("beginning square");
-  LineTo({.x = 0, .y= 10});
+  Serial.begin(9600);
+  shoulder.setMaxSpeed(80);
+  elbow.setMaxSpeed(80);
+  Arm.addStepper(shoulder);
+  Arm.addStepper(elbow);
+  // long steps [2] = {200,400};
+  // Arm.moveTo(steps);
+  // Serial.println("shoulder speed: " + String(shoulder.speed()));
+  // Serial.println("elbow speed: " + String(elbow.speed()));
+  // RunSteppers();
+  // Serial.println("switching directions");
+  // steps[0] = -0;
+  // steps[1] = -0;
+  // Arm.moveTo(steps);
+  // Serial.println("shoulder speed: " + String(shoulder.speed()));
+  // Serial.println("elbow speed: " + String(elbow.speed()));
+  // RunSteppers();
+
+  //Serial.println("beginning square");
+  // drawLine({.x = 0, .y= 10},{.x =100, .y = 110});
+  goTo({ .x = 0, .y = 0 });
+  goTo({.x = 20,.y = 20});
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-
-
-
 }
