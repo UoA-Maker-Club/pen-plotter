@@ -19,7 +19,7 @@ This is a free event with the goal of sending everyone home with a pen plotter a
 
 **Intro**: We introduce the clubs and demonstrate briefly how to make the pen plotter and explain what we will be doing.\
 **Collab**: Breaking into teams of 3-5 working together to make one pen plotter.\
-**Individual**: Using the process learned in the previous step to make the rest the new lanterns for the team.\
+**Individual**: Using the process learned in the previous step to make the rest the plotters for the team.\
 **Food**: Needed for survival by humans.\
 **Outro**: Bring the group back together and going further with the lanterns, as well as exploring more options for this tech.
 
@@ -55,10 +55,13 @@ During the in person workshop we will provide you with a few components, these a
 - 2 x [28BYJ-48 Stepper Motors](https://components101.com/motors/28byj-48-stepper-motor)
 - 1 x Battery Holder
 - 4 x AA Batteris
-- 1 x Acrylic parts (made of 3 components)
+- 3 x Acrylic parts
 - 1 x mini bread board
-- 1 x USB cable (BYO)
-- 1 x Laptop (BYO)
+- 3 x 3D printed parts\
+- 7 x m3 bolts
+- 2 x m3 nuts
+
+<img width="500px" src="./images/layout.webp">
 
 You will need to bring 2 things
 
@@ -67,38 +70,38 @@ You will need to bring 2 things
 
 ### `Step 3.1: Mechanism`
 
-Attach the breadboard, batteries, and one stepper motor to the acrylic base.
+Attach the breadboard, batteries, and one stepper motor to the acrylic base. using bolts and double sided tape
 
-<!-- HUGH ADD PHOTO HERE -->
+<img width="500px" src="./images/base.webp">
+<img width="500px" src="./images/shoulder2.webp">
 
-Connect shoulder joint and elbow join to the stepper motors
+Add the stepper drivers and battery holder using double sided tape
 
-<!-- HUGH ADD PHOTO HERE -->
+<img width="500px" src="./images/drivers.webp">
 
-### `Step 3.2: Wiring`
+Place the Arduino Nano into the breadboard, pay close attention to its location, it should be one row over from the stepper motor, and two columns back from the Mecha X Maker logo.
 
-Nano
-  GND - GND batteries
-        GND Sero
-        GND Shoulder Stepper
-        GND Elbow Stepper
-        
-  5V - Servo Voltage
-  D2 - Servo Data
-  
-  D3 - Shoulder Stepper 1 
-  D4 - Shoulder Stepper 2
-  D5 - Shoulder Stepper 3
-  D6 - Shoulder Stepper 4
-  
-  D7 - Elbow Stepper 1
-  D8 - Elbow Stepper 2
-  D9 - Elbow Stepper 3
-  D10 - Elbow Stepper 4
+<img width="500px" src="./images/nano_spacing_2.webp">
 
-Batteries + - Shoulder Stepper +
-            - Elbow Stpper +
+wire up the two board drivers to the arduino following the diagram
 
+<img width="500px" src="./images/stepper driver diagram.webp">
+
+Build the forearm from the servo, stepper, and lasercut piece
+
+<img width="500px" src="./images/forearm.webp">
+
+connect forearm to the base using the shoulder to elbow, acrylic piece
+
+<img width="500px" src="./images/shoulder.webp">
+
+wire up the servo to the Arduino Nano according to the below diagram, you will need 3 extra female to male wires
+
+<img width="500px" src="./images/servo diagram.webp">
+
+the final step is to wire up the battery holder and power wires for the stepper drivers, pay careful attention to the positive and negative locations
+
+"need another image
 
 <!-- HUGH ADD PHOTO HERE -->
 
