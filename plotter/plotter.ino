@@ -9,7 +9,7 @@ const int STEPS = 2048;//dont mess with these
 const int shoulderToElbow = 100;
 const int elbowToPen = 120;//change this one based on the distance of your elbow to 
 //~~~~~~~~~~SERVO ANGLES~~~~~~~~~~~~~//
-const int drawAngle = 10;
+const int drawAngle = 10;//change this one so your pen just touches the paper
 const int moveAngle = 45;
 
 typedef struct {
