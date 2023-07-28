@@ -8,6 +8,9 @@ const int STEPS = 2048;//dont mess with these
 //~~~~~~~~~~~JOINT LENGTHS~~~~~~~~~~~~~~~~~//
 const int shoulderToElbow = 100;
 const int elbowToPen = 120;//change this one based on the distance of your elbow to 
+//~~~~~~~~~~SERVO ANGLES~~~~~~~~~~~~~//
+const int drawAngle = 10;
+const int moveAngle = 45;
 
 typedef struct {
   double r;
@@ -46,7 +49,6 @@ void RunSteppers() {
 
   while (Arm.run()) {
     delay(10);
-    // Serial.println("running Steppers");
   }
 }
 
@@ -81,9 +83,9 @@ void drawLine(CPos previous, CPos pos) {
     runSign = -1;
   }
   float gradient = abs(rise) / abs(run);
-  servo.write(45);
+  servo.write(moveAngle);
   goTo(previous);
-  servo.write(0);
+  servo.write(drawAngle);
   if (abs(rise) > abs(run)) {
     for (int i = 0; i < abs(rise); i++) {
       CPos point = {.x = (((int)(i / gradient))*runSign) + previous.x,.y = (i*riseSign) + previous.y};
@@ -96,7 +98,7 @@ void drawLine(CPos previous, CPos pos) {
       goTo(point);
     }
   }
-  servo.write(45);
+  servo.write(moveAngle);
 }
 
 
@@ -114,10 +116,6 @@ void setup() {
 
 //~~~~~~~~~~~~~~~DRAWING CODE~~~~~~~~~~~~~~~~//
 //
-
-  servo.write(45);
-  Serial.println("set servo to 45");
-  servo.write(0);
   drawLine({.x = 100, .y = 100},{.x = 150, .y = 150});
   
 
