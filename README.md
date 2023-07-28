@@ -111,20 +111,10 @@ the final step is to wire up the battery holder and power wires for the stepper 
 
 Upload the code
 
-<!-- HUGH ADD GIF HERE -->
-
 ## `Step 4: Generate Patterns`
 
-## `Step 4.1: Website`
-Use [https://sandify.org/](https://sandify.org/) to generate patterns!
+use the drawLine tool to try making some cool patterns
 
-Set the machine max to 300mm by 200mm
-<!-- HUGH ADD GIF HERE -->
-
-
-## `Step 4.2:`
-Download the pattern and copy paste it into the serial monitor
-<!-- HUGH ADD GIF HERE -->
 
 
 ## Socials
