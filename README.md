@@ -91,6 +91,10 @@ Build the forearm from the servo, stepper, and lasercut piece
 
 <img width="500px" src="./images/forearm.webp">
 
+Add the pen using the pen holder wheel and a zip tie
+
+<img width="500px" src="./images/pen_attachment.jpeg">
+
 connect forearm to the base using the shoulder to elbow, acrylic piece
 
 <img width="500px" src="./images/shoulder.webp">
