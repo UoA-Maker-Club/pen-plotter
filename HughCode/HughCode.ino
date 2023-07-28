@@ -1,12 +1,13 @@
-#include <AccelStepper.h>
-#include <MultiStepper.h>
-#include <Servo.h>
-#define MotorInterfaceType 4
-const int JOINT_LENGTH = 100;
-const int MAX_SPEED = 1000;
-const int STEPS = 2048;
+#include <AccelStepper.h>//loads an external library
+#include <MultiStepper.h>//loads an external library
+#include <Servo.h>//loads an external library
+#define MotorInterfaceType 4//defines the type of stepper motor we are using
+const int MAX_SPEED = 80;//dont mess with these
+const int STEPS = 2048;//dont mess with these
+
+//~~~~~~~~~~~JOINT LENGTHS~~~~~~~~~~~~~~~~~//
 const int shoulderToElbow = 100;
-const int elbowToPen = 120;
+const int elbowToPen = 120;//change this one based on the distance of your elbow to 
 
 typedef struct {
   double r;
@@ -30,10 +31,12 @@ typedef struct {
   }
 } CPos;
 
-AccelStepper shoulder(AccelStepper::FULL4WIRE, 3, 5, 4, 6);
-AccelStepper elbow(AccelStepper::FULL4WIRE, 7, 9, 8, 10);
+AccelStepper shoulder(AccelStepper::FULL4WIRE, 3, 5, 4, 6);// creates the shoulder stepper object and attaches it to pins 3,4,5,6
+AccelStepper elbow(AccelStepper::FULL4WIRE, 7, 9, 8, 10);// creates the shoulder stepper object and attaches it to pins 7,8,9,10
+Servo servo;
 
-MultiStepper Arm;
+
+MultiStepper Arm;//creates the arm object
 
 int radToSteps(double radians) {
   return (radians / (2 * PI)) * STEPS;
@@ -61,56 +64,74 @@ void goTo(CPos pos) {
 }
 
 void drawLine(CPos previous, CPos pos) {
+  int riseSign;
+  int runSign;
   int rise = pos.y - previous.y;
+  if (rise > 0){
+    riseSign = 1;
+  }
+  else{
+    riseSign = -1;
+  }
   int run = pos.x - previous.x;
-  float gradient = rise / run;
+  if (run > 0){
+    runSign = 1;
+  }
+  else{
+    runSign = -1;
+  }
+  float gradient = abs(rise) / abs(run);
+  servo.write(45);
   goTo(previous);
-  if (rise > run) {
-    for (int i = 0; i < rise; i++) {
-      CPos point = {
-        .x = (int)(i / gradient) + previous.x,
-        .y = i + previous.y
-      };
-      goTo(point);
-    }
-  } else if (run > rise) {
-    for (int i = 0; i < run; i++) {
-      CPos point = {
-        .x = i + previous.x,
-        .y = (int)(i * gradient) + previous.y
-      };
-
+  servo.write(0);
+  if (abs(rise) > abs(run)) {
+    for (int i = 0; i < abs(rise); i++) {
+      CPos point = {.x = (((int)(i / gradient))*runSign) + previous.x,.y = (i*riseSign) + previous.y};
       goTo(point);
     }
   }
+  else if (abs(run) >= abs(rise)) {
+    for (int i = 0; i < abs(run); i++) {
+      CPos point = {.x = (i*runSign) + previous.x , .y = (((int)(i * gradient))*riseSign) + previous.y};
+      goTo(point);
+    }
+  }
+  servo.write(45);
 }
+
+
 
 void setup() {
 
+//~~~~~~~INITIALISATION(don't mess with these)~~~~~~~//
   Serial.begin(9600);
-  shoulder.setMaxSpeed(80);
-  elbow.setMaxSpeed(80);
-  Arm.addStepper(shoulder);
-  Arm.addStepper(elbow);
-  // long steps [2] = {200,400};
-  // Arm.moveTo(steps);
-  // Serial.println("shoulder speed: " + String(shoulder.speed()));
-  // Serial.println("elbow speed: " + String(elbow.speed()));
-  // RunSteppers();
-  // Serial.println("switching directions");
-  // steps[0] = -0;
-  // steps[1] = -0;
-  // Arm.moveTo(steps);
-  // Serial.println("shoulder speed: " + String(shoulder.speed()));
-  // Serial.println("elbow speed: " + String(elbow.speed()));
-  // RunSteppers();
+  shoulder.setMaxSpeed(MAX_SPEED);//sets the max speed of the shoulder
+  elbow.setMaxSpeed(MAX_SPEED);//sets the max speed of the elbow
+  Arm.addStepper(shoulder);//adds the shoulder stepper to the arm object
+  Arm.addStepper(elbow);//adds the elbow stepper to the arm object
+  servo.attach(2);//attaches the servo to pin 2
 
-  //Serial.println("beginning square");
-  // drawLine({.x = 0, .y= 10},{.x =100, .y = 110});
-  goTo({ .x = 0, .y = 0 });
-  goTo({ .x = 20, .y = 20 });
+
+//~~~~~~~~~~~~~~~DRAWING CODE~~~~~~~~~~~~~~~~//
+//
+
+  servo.write(45);
+  Serial.println("set servo to 45");
+  servo.write(0);
+  drawLine({.x = 100, .y = 100},{.x = 150, .y = 150});
+  
+
+
+
+
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+//~~~~~~~~~~CODE HERE WILL RUN IN A LOOP FOREVER~~~~~~~~~~~~//
+
+
 }
