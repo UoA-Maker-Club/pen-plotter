@@ -93,7 +93,7 @@ Build the forearm from the servo, stepper, and lasercut piece
 
 Add the pen using the pen holder wheel and a zip tie
 
-<img width="500px" src="./images/pen_attachment.jpeg">
+<img width="500px" src="./images/pen attachment.jpg">
 
 connect forearm to the base using the shoulder to elbow, acrylic piece
 
@@ -105,9 +105,7 @@ wire up the servo to the Arduino Nano according to the below diagram, you will n
 
 the final step is to wire up the battery holder and power wires for the stepper drivers, pay careful attention to the positive and negative locations
 
-"need another image
-
-<!-- HUGH ADD PHOTO HERE -->
+<img width="500px" src="./images/rails.webp">
 
 ## `Step 4: Software`
 
