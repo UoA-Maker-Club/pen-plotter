@@ -18,8 +18,8 @@ typedef struct {
   int y;
 
   void scaleMap() {
-      x = map(x, 0, 150, 150, 30);
-      y = map(y, 0, 150, 150, 30);
+    x = map(x, 0, 150, 150, 30);
+    y = map(y, 0, 150, 150, 30);
   }
 
   PPos toPolar() {
@@ -60,34 +60,30 @@ void goTo(CPos pos) {
   RunSteppers();
 }
 
-// void drawLine(CPos previous, CPos pos);
-//   int rise = pos.y - previous.y;
-//   int run = pos.x - previous.x;
-//   float gradient = rise/run;
-//   goTo(previous);
-//   if (rise > run){
-//     for (int i = 0; i < rise; i++){
-//         CPos point;
-//         point.x = int(i/gradient) + previous.x;
-//         pint.y = i + previous.y;
-//         goTo(point);
-//     }
-//   }
-//   else if (run > rise){
-//     for (int i = 0; i < run; i++){
-//         CPos point;
-//         point.x = i + previous.x;
-//         point.y = int(i*gradient) + prevous.y;
-//         goTo(point);
-//     }
-//   }
+void drawLine(CPos previous, CPos pos) {
+  int rise = pos.y - previous.y;
+  int run = pos.x - previous.x;
+  float gradient = rise / run;
+  goTo(previous);
+  if (rise > run) {
+    for (int i = 0; i < rise; i++) {
+      CPos point = {
+        .x = (int)(i / gradient) + previous.x,
+        .y = i + previous.y
+      };
+      goTo(point);
+    }
+  } else if (run > rise) {
+    for (int i = 0; i < run; i++) {
+      CPos point = {
+        .x = i + previous.x,
+        .y = (int)(i * gradient) + previous.y
+      };
 
-
-
-
-
-
-
+      goTo(point);
+    }
+  }
+}
 
 void setup() {
 
@@ -112,7 +108,7 @@ void setup() {
   //Serial.println("beginning square");
   // drawLine({.x = 0, .y= 10},{.x =100, .y = 110});
   goTo({ .x = 0, .y = 0 });
-  goTo({.x = 20,.y = 20});
+  goTo({ .x = 20, .y = 20 });
 }
 
 void loop() {
